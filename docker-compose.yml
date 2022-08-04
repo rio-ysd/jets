@@ -1,0 +1,38 @@
+version: '3'
+volumes:
+  tmp-vendor:
+  tmp-node_modules:
+services:
+  app:
+    image: ruby:2.7.6
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: >
+      bash -c "apt-get update -qq &&
+      apt-get install -y curl apt-transport-https wget &&
+      curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - &&
+      echo 'deb https://dl.yarnpkg.com/debian/ stable main' | tee /etc/apt/sources.list.d/yarn.list &&
+      apt-get update && apt-get install -y build-essential libpq-dev nodejs yarn graphviz &&
+      bundle install &&
+      bundle exec jets s --port=8080 --host=0.0.0.0"
+    ports:
+      - 8080:8080
+    environment:
+      RAILS_ENV: development
+      DB_PASS: password
+      DB_HOST: db
+    depends_on:
+      - db
+  db:
+    platform: linux/x86_64
+    image: mysql:5.7
+    volumes:
+      - ./.mysql_data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - 33060:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+  memcached:
+    image: memcached
