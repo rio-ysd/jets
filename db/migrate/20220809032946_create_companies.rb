@@ -1,9 +1,7 @@
-class CreateCompanies < ActiveRecord::Migration[6.1]
+class CreateCompanies < Db::CreateBase
   def change
     create_table :companies do |t|
       t.string :name
-
-      t.timestamps
     end
   end
 end

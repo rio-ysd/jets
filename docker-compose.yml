@@ -16,7 +16,7 @@ services:
       apt-get update && apt-get install -y build-essential libpq-dev nodejs yarn graphviz &&
       bundle config set path 'vendor/bundle' &&
       bundle install &&
-      bundle exec jets s --port=8080 --host=0.0.0.0"
+      while :; do sleep 10; done"
     ports:
       - 8080:8080
     environment:

@@ -10,12 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_09_032946) do
+ActiveRecord::Schema.define(version: 2022_08_09_062439) do
 
-  create_table "companies", charset: "utf8mb4", force: :cascade do |t|
+  create_table "companies", id: { type: :bigint, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at", null: false
+    t.index ["deleted_at"], name: "index_companies_on_deleted_at"
   end
 
+  create_table "users", id: { type: :bigint, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "company_id", null: false, unsigned: true
+    t.string "name", default: "", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at", null: false
+    t.index ["company_id"], name: "index_users_on_company_id"
+    t.index ["deleted_at"], name: "index_users_on_deleted_at"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  add_foreign_key "users", "companies"
 end
