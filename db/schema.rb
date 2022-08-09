@@ -22,19 +22,21 @@ ActiveRecord::Schema.define(version: 2022_08_09_072948) do
 
   create_table "designs", id: { type: :bigint, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
     t.bigint "company_id", null: false, unsigned: true
+    t.bigint "layout_id", null: false, unsigned: true
     t.string "title"
-    t.string "content"
+    t.binary "content", size: :long
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at", null: false
     t.index ["company_id"], name: "index_designs_on_company_id"
     t.index ["deleted_at"], name: "index_designs_on_deleted_at"
+    t.index ["layout_id"], name: "index_designs_on_layout_id"
   end
 
   create_table "layouts", id: { type: :bigint, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
     t.bigint "company_id", null: false, unsigned: true
     t.string "title"
-    t.string "content"
+    t.binary "content", size: :long
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at", null: false
@@ -44,6 +46,7 @@ ActiveRecord::Schema.define(version: 2022_08_09_072948) do
 
   create_table "pages", id: { type: :bigint, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
     t.bigint "company_id", null: false, unsigned: true
+    t.bigint "design_id", null: false, unsigned: true
     t.string "title"
     t.string "content"
     t.datetime "created_at", precision: 6, null: false
@@ -51,6 +54,7 @@ ActiveRecord::Schema.define(version: 2022_08_09_072948) do
     t.datetime "deleted_at", null: false
     t.index ["company_id"], name: "index_pages_on_company_id"
     t.index ["deleted_at"], name: "index_pages_on_deleted_at"
+    t.index ["design_id"], name: "index_pages_on_design_id"
   end
 
   create_table "users", id: { type: :bigint, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
@@ -71,7 +75,9 @@ ActiveRecord::Schema.define(version: 2022_08_09_072948) do
   end
 
   add_foreign_key "designs", "companies"
+  add_foreign_key "designs", "layouts"
   add_foreign_key "layouts", "companies"
   add_foreign_key "pages", "companies"
+  add_foreign_key "pages", "designs"
   add_foreign_key "users", "companies"
 end

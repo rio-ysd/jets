@@ -3,7 +3,7 @@ class CreateLayouts < Db::CreateBase
     create_table :layouts do |t|
       t.id     :company
       t.string :title
-      t.string :content
+      t.binary :content, limit: 3.gigabytes
     end
   end
 end
