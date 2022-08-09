@@ -1,21 +1,2 @@
-<div class="columns">
-  <div class="column">
-    <h1 class="title is-1">Show Design</h1>
-  </div>
-  <div class="column has-text-right">
-    <%= link_to '<i class="fas fa-chevron-left mr-1"></i> Back'.html_safe, designs_path, class: 'button mr-3' %>
-  </div>
-</div>
-
-<p>
-  <strong>title:</strong>
-  <%= @design.title %>
-</p>
-<p>
-  <strong>content:</strong>
-  <%= @design.content %>
-</p>
-
-<div class="mt-5 pt-5">
-  <%= link_to 'Edit', edit_design_path(@design), class: 'button is-success' %>
-</div>
+<%= @layout.content.gsub(/\<%= content %\>/, @design.content).html_safe %>
+<%= link_to 'Back', mypage_layouts_path, style: 'position: fixed;bottom: 5px;right: 5px;text-decoration: none;color: #fff;background: rgba(0,0,0,0.5);padding: 5px 10px;border-radius: 3px;font-size: 10px;border: 1px solid #666666;' %>
