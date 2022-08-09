@@ -1,0 +1,24 @@
+<%= form_with(model: design, local: true) do |form| %>
+    <% if design.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(design.errors.count, "error") %> prohibited this design from being saved:</h2>
+  
+        <ul>
+          <% design.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  
+    <%= form.label :title %>
+    <%= form.text_field :title, class: 'input' %>
+
+    <%= form.label :content %>
+    <%= form.text_field :content, class: 'input' %>
+  
+    <div class="mt-5 pt-5">
+      <%= form.submit class: 'button is-success' %>
+    </div>
+  <% end %>
+  
