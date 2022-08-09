@@ -7,13 +7,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <%= csrf_meta_tags %>
   <title>Jets App</title>
-  <%= javascript_pack_tag "application" %>
-  <%= stylesheet_pack_tag "theme" %>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="shortcut icon" href="<%= favicon_path %>">
+  <script src="path/to/the/downloaded/folder/dist/bulma.js"></script>
 </head>
 <body>
 <section class="starter">
-  <div class="container">
+  <%= render 'header' %>
+  <div class="container my-6 pb-6">
     <div class="row">
       <div class="col-md-9 content-body">
         <% if @title %><h1><%= @title %></h1><% end %>
@@ -21,6 +23,7 @@
       </div>
     </div>
   </div>
+  <%= render 'footer' %>
 </section>
 </body>
 </html>

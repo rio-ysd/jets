@@ -1,7 +1,11 @@
 # Jets Project
 
-```
-docker-compose exec app bundle exec jets db:create
-docker-compose exec app bundle exec jets db:migrate
-docker-compose exec app bundle exec jets db:seed
-```
+This README would normally document whatever steps are necessary to get the application up and running.
+
+Things you might want to cover:
+
+* Dependencies
+* Configuration
+* Database setup
+* How to run the test suite
+* Deployment instructions

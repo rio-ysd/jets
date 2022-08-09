@@ -1,10 +1,8 @@
-.mysql_data
 *.gem
 .bundle
 .byebug_history
 .DS_Store
 .env*
-!.env.development
 /node_modules
 /public/packs
 /public/packs-test
