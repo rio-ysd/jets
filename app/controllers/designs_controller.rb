@@ -18,7 +18,7 @@ class DesignsController < ApplicationController
           row == 'title'
         end
       end
-      render json: contents
+      render json: {html: @design.layout.content.gsub(/\<%= content %\>/, @design.content), contents: contents}
     else
       @layout = Layout.find 1
       render layout: false
