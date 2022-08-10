@@ -1,5 +1,6 @@
 class DesignsController < ApplicationController
   before_action :set_design, only: [:show, :edit, :update, :delete]
+  before_action :set_layouts, only: %i[new edit]
 
   # GET /designs
   def index
@@ -68,7 +69,11 @@ private
     @design = Design.find params[:id].to_i
   end
 
+  def set_layouts
+    @layouts = Layout.all
+  end
+
   def design_params
-    params.require(:design).permit([:title, :content])
+    params.require(:design).permit([:title, :content, :layout_id])
   end
 end
