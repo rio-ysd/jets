@@ -57,6 +57,6 @@ private
   end
 
   def design_params
-    params.require(:design).permit([:title, :content])
+    params.require(:design).permit([:title, :content, :layout_id])
   end
 end
