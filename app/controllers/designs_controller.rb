@@ -26,6 +26,7 @@ class DesignsController < ApplicationController
   def create
     @design = Design.new(design_params)
     @design.company_id = 1
+    @design.layout_id = 2
 
     if @design.save
       redirect_to design_path(@design)
