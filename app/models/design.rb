@@ -1,4 +1,5 @@
 class Design < ApplicationRecord
-  # has_many :layouts
+  belongs_to :company
+  belongs_to :layout
+  has_many :pages
 end
-  
