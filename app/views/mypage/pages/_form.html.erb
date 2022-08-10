@@ -1,23 +1,60 @@
-<%= form_with(model: [:mypage, layout], local: true) do |form| %>
-  <% if layout.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(layout.errors.count, "error") %> prohibited this layout from being saved:</h2>
+<div class="columns is-gapless">
+  <div class="column">
+    <%= form_with(model: [:mypage, page], local: true) do |form| %>
+      <% if page.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(page.errors.count, "error") %> prohibited this page from being saved:</h2>
 
-      <ul>
-        <% layout.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+          <ul>
+            <% page.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-  <%= form.label :title %>
-  <%= form.text_field :title, class: 'input' %>
+      <%= form.label :design %><br>
+      <div class="select">
+        <%= form.select :design_id, @designs.map { |design| [design.title, design.id] }, {include_blank: '選択してください'} %>
+      </div>
 
-  <%= form.label :content %>
-  <%= form.text_area :content, class: 'textarea' %>
+      <div class="mt-3">
+        <%= form.label :title %>
+        <%= form.text_field :title, class: 'input' %>
+      </div>
 
-  <div class="mt-5 pt-5">
-    <%= form.submit class: 'button is-success' %>
+      <div id="content"></div>
+
+      <div class="mt-5 pt-5">
+        <%= form.submit class: 'button is-success' %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+  <div class="column">
+    <iframe src="/mypage/pages/1" width="100%" height="900"></iframe>
+  </div>
+</div>
+
+<script type="text/javascript">
+  setTimeout(function(){
+    let designSelector = document.querySelector('[name="page[design_id]"]');
+    let content = document.querySelector('#content');
+
+    function changeDesign() {
+      let design_id = designSelector.value;
+      content.innerHTML = '';
+      if (!design_id) return;
+
+      fetch(`/designs/${design_id}.json`)
+        .then(response => response.json())
+        .then(rows => {
+          let current = <%= JSON.parse(page.content).to_json.html_safe %>;
+          rows.forEach((row) => {
+            content.insertAdjacentHTML('beforeend', `<div class="mt-3"><label>${row}</label><textarea class="textarea" name="page[content][${row}]">${current[row] || ''}</textarea></div>`);
+          })
+        });
+    }
+    designSelector.onchange = changeDesign;
+    changeDesign();
+  })
+</script>
