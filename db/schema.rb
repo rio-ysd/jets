@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 2022_08_09_072948) do
     t.bigint "company_id", null: false, unsigned: true
     t.bigint "design_id", null: false, unsigned: true
     t.string "title"
-    t.string "content"
+    t.binary "content", size: :long
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at", null: false

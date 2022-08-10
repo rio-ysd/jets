@@ -4,7 +4,7 @@ class CreatePages < Db::CreateBase
       t.id     :company
       t.id     :design
       t.string :title
-      t.string :content
+      t.binary :content, limit: 3.gigabytes
     end
   end
 end
