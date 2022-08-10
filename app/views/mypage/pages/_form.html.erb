@@ -20,7 +20,7 @@
 
       <div class="mt-3">
         <%= form.label :title %>
-        <%= form.text_field :title, class: 'input' %>
+        <%= form.text_field :title, class: 'input', onkeyup: 'document.setHTML()' %>
       </div>
 
       <div id="content"></div>
@@ -53,16 +53,29 @@
           let current = <%= JSON.parse(page.content).to_json.html_safe %>;
           resp.contents.forEach((row) => {
             let name = `page[content][${row}]`;
-            content.insertAdjacentHTML('beforeend', `<div class="mt-3"><label>${row}</label><textarea class="textarea" name="${name}">${current[row] || ''}</textarea></div>`);
-            console.log(document.querySelector(`[name="${name}"]`))
+            content.insertAdjacentHTML('beforeend', `<div class="mt-3"><label>${row}</label><textarea class="textarea" name="${name}" onkeyup="document.setHTML()">${current[row] || ''}</textarea></div>`);
           });
           setHTML();
         });
     }
 
-    function setHTML() {
-      document.querySelector('iframe').contentWindow.document.querySelector('html').innerHTML = html;
+    function replaceHTML(target, name, value) {
+      let regexp = '%';
+      regexp = new RegExp(`\<${regexp}= *${name} *%\>`, 'g');
+      return target.replace(regexp, value);
     }
+
+    function setHTML() {
+      let _html = replaceHTML(html, 'title', document.querySelector('[name="page[title]"]').value);
+      document.querySelectorAll('#content [name]').forEach((row) => {
+        let m = row.name.match(/page\[content\]\[([^\]]+)\]/)
+        if (!m) return;
+
+        _html = replaceHTML(_html, m[1], row.value);
+      })
+      document.querySelector('iframe').contentWindow.document.querySelector('html').innerHTML = _html;
+    }
+    document.setHTML = setHTML;
 
     designSelector.onchange = changeDesign;
     changeDesign();
