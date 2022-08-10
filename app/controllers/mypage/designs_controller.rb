@@ -1,5 +1,5 @@
-class DesignsController < ApplicationController
-  before_action :set_design, only: [:show, :edit, :update, :delete]
+class Mypage::DesignsController < Mypage::ApplicationController
+  before_action :set_design, only: %i[show edit update delete]
   before_action :set_layouts, only: %i[new edit]
 
   # GET /designs
@@ -42,7 +42,7 @@ class DesignsController < ApplicationController
     @design.layout_id = 2
 
     if @design.save
-      redirect_to design_path(@design)
+      redirect_to mypage_design_path(@design)
     else
       render :new
     end
@@ -51,7 +51,7 @@ class DesignsController < ApplicationController
   # PUT /designs/1
   def update
     if @design.update(design_params)
-      redirect_to design_path(@design)
+      redirect_to mypage_design_path(@design)
     else
       render :edit
     end

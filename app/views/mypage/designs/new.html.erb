@@ -1,0 +1,10 @@
+<div class="columns">
+  <div class="column">
+    <h1 class="title is-1">New Design</h1>
+  </div>
+  <div class="column has-text-right">
+    <%= link_to '<i class="fas fa-chevron-left mr-1"></i> Back'.html_safe, mypage_designs_path, class: 'button mr-3' %>  
+  </div>
+</div>
+
+<%= render 'mypage/designs/form', design: @design %>

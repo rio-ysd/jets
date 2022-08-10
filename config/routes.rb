@@ -5,6 +5,7 @@ Jets.application.routes.draw do
   namespace :mypage do
     resources :layouts
     resources :pages
+    resources :designs
   end
   root "jets/public#show"
   any "*catchall", to: "jets/public#show"
