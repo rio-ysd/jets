@@ -8,7 +8,7 @@ class DesignsController < ApplicationController
 
   # GET /designs/1
   def show
-    @layout = Layout.find 2
+    @layout = Layout.find 1
 
     render layout: false
   end

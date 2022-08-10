@@ -22,7 +22,6 @@ class Mypage::LayoutsController < Mypage::ApplicationController
 
   # POST /layouts
   def create
-    p current_user.company.id
     @layout = current_user.company.layouts.new(layout_params)
 
     if @layout.save
