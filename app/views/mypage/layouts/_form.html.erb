@@ -1,23 +1,40 @@
-<%= form_with(model: [:mypage, layout], local: true) do |form| %>
-  <% if layout.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(layout.errors.count, "error") %> prohibited this layout from being saved:</h2>
+<div class="columns is-gapless">
+  <div class="column">
+    <%= form_with(model: [:mypage, layout], local: true, class: 'mr-5') do |form| %>
+      <% if layout.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(layout.errors.count, "error") %> prohibited this layout from being saved:</h2>
 
-      <ul>
-        <% layout.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+          <ul>
+            <% layout.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-  <%= form.label :title %>
-  <%= form.text_field :title, class: 'input' %>
+      <%= form.label :title %>
+      <%= form.text_field :title, class: 'input' %>
 
-  <%= form.label :content %>
-  <%= form.text_area :content, class: 'textarea' %>
+      <%= form.label :content %>
+      <%= form.text_area :content, class: 'textarea', rows: 20, style: 'font-size:10px' %>
 
-  <div class="mt-5 pt-5">
-    <%= form.submit class: 'button is-success' %>
+      <div class="mt-5 pt-5">
+        <%= form.submit class: 'button is-success' %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+  <div class="column">
+    <iframe width="100%" height="900" style="zoom:0.5;"><html></html></iframe>
+  </div>
+</div>
+
+<script type="text/javascript">
+  setTimeout(function(){
+    let contentSelector = document.querySelector('[name="layout[content]"]');
+    function setHTML() {
+      document.querySelector('iframe').contentWindow.document.querySelector('html').innerHTML = contentSelector.value;
+    }
+    setHTML();
+  })
+</script>
