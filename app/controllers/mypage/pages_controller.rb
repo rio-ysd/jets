@@ -1,12 +1,13 @@
 class Mypage::PagesController < Mypage::ApplicationController
   before_action :set_page, only: %i[show edit update delete]
+  before_action :set_designs, only: %i[new edit]
 
-  # GET /layouts
+  # GET /pages
   def index
-    @layouts = Layout.all
+    @pages = Page.all
   end
 
-  # GET /layouts/1
+  # GET /pages/1
   def show
     design = @page.design
     @html = design.layout.content.gsub(/\<%= content %\>/, design.content)
@@ -19,39 +20,39 @@ class Mypage::PagesController < Mypage::ApplicationController
     render layout: false
   end
 
-  # GET /layouts/new
+  # GET /pages/new
   def new
-    @layout = Layout.new
+    @page = Page.new
   end
 
-  # GET /layouts/1/edit
+  # GET /pages/1/edit
   def edit
   end
 
-  # POST /layouts
+  # POST /pages
   def create
-    @layout = current_user.company.layouts.new(layout_params)
+    @page = current_user.company.pages.new(page_params)
 
-    if @layout.save
-      redirect_to mypage_layout_path(@layout)
+    if @page.save
+      redirect_to mypage_page_path(@page)
     else
       render :new
     end
   end
 
-  # PUT /layouts/1
+  # PUT /pages/1
   def update
-    if @layout.update(layout_params)
-      redirect_to mypage_layout_path(@layout)
+    if @page.update(page_params)
+      redirect_to mypage_page_path(@page)
     else
       render :edit
     end
   end
 
-  # DELETE /layouts/1
+  # DELETE /pages/1
   def delete
-    @layout.destroy
-    redirect_to layouts_path
+    @page.destroy
+    redirect_to pages_path
   end
 
   private
@@ -60,7 +61,15 @@ class Mypage::PagesController < Mypage::ApplicationController
     @page = Page.find(params[:id])
   end
 
-  def layout_params
-    params.require(:layout).permit(%i[title content])
+  def set_designs
+    @designs = Design.all
+  end
+
+  def page_params
+    params.require(:page).permit(%i[design_id title]).to_hash.merge content: content_params.to_json
+  end
+
+  def content_params
+    params.require(:page).require(:content)
   end
 end

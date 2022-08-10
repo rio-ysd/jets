@@ -8,9 +8,21 @@ class DesignsController < ApplicationController
 
   # GET /designs/1
   def show
-    @layout = Layout.find 1
-
-    render layout: false
+    if params[:id].match(/\.json$/)
+      contents = []
+      m = @design.content.scan(/\<%= +([^ %]+) +%\>/)
+      if m.present?
+        contents = m.map do |row|
+          row.first
+        end.delete_if do |row|
+          row == 'title'
+        end
+      end
+      render json: contents
+    else
+      @layout = Layout.find 1
+      render layout: false
+    end
   end
 
   # GET /designs/new
@@ -53,7 +65,7 @@ class DesignsController < ApplicationController
 private
   # Use callbacks to share common setup or constraints between actions.
   def set_design
-    @design = Design.find(params[:id])
+    @design = Design.find params[:id].to_i
   end
 
   def design_params

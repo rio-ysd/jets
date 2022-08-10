@@ -1,13 +1,13 @@
 <div class="columns">
   <div class="column">
-    <h1 class="title is-1">Layouts</h1>
+    <h1 class="title is-1">Pages</h1>
   </div>
   <div class="column has-text-right">
-    <%= link_to '<i class="fas fa-file-medical mr-1"></i>New'.html_safe, new_mypage_layout_path, class: 'button' %>
+    <%= link_to '<i class="fas fa-file-medical mr-1"></i>New'.html_safe, new_mypage_page_path, class: 'button' %>
   </div>
 </div>
 
-<% if @layouts.present? %>
+<% if @pages.present? %>
   <table class="table is-fullwidth">
     <thead>
       <tr>
@@ -16,13 +16,13 @@
       </tr>
     </thead>
     <tbody>
-      <% @layouts.each do |layout| %>
+      <% @pages.each do |page| %>
         <tr class="jets-element-to-delete">
-          <td><%= layout.title %></td>
+          <td><%= page.title %></td>
           <td class="has-text-right">
-            <%= link_to '<i class="fas fa-file-alt"></i>'.html_safe, [:mypage, layout] %>
-            <%= link_to '<i class="fas fa-pencil-alt ml-3"></i>'.html_safe, edit_mypage_layout_path(layout) %>
-            <%= link_to '<i class="far fa-trash-alt ml-3"></i>'.html_safe, [:mypage, layout], method: :delete, data: { confirm: 'Are you sure?' } %>
+            <%= link_to '<i class="fas fa-file-alt"></i>'.html_safe, [:mypage, page] %>
+            <%= link_to '<i class="fas fa-pencil-alt ml-3"></i>'.html_safe, edit_mypage_page_path(page) %>
+            <%= link_to '<i class="far fa-trash-alt ml-3"></i>'.html_safe, [:mypage, page], method: :delete, data: { confirm: 'Are you sure?' } %>
           </td>
         </tr>
       <% end %>
