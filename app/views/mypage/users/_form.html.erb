@@ -1,0 +1,30 @@
+<%= form_with(model: [:mypage, user], local: true) do |form| %>
+    <% if user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+  
+        <ul>
+          <% user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  
+    <%= form.label :name %>
+    <%= form.text_field :name, class: 'input' %>
+
+    <%= form.label :email %>
+    <%= form.text_field :email, class: 'input' %>
+
+    <%= form.label :password %>
+    <%= form.password_field :encrypted_password, class: 'input' %>
+
+    <%= form.label :confirmationpassword %>
+    <%= form.password_field :encrypted_password_confirmation, class: 'input', placeholder: "パスワードを再入力" %>
+
+    <div class="mt-5 pt-5">
+    <%= form.submit class: 'button is-success' %>
+  </div>
+  <% end %>
+  
