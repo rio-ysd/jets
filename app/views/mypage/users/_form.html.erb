@@ -12,16 +12,16 @@
     <% end %>
   
     <%= form.label :name %>
-    <%= form.text_field :name, class: 'input' %>
+    <%= form.text_field :name, required: true, class: 'input' %>
 
     <%= form.label :email %>
-    <%= form.text_field :email, class: 'input' %>
+    <%= form.text_field :email, required: true, class: 'input' %>
 
     <%= form.label :password %>
-    <%= form.password_field :encrypted_password, class: 'input' %>
+    <%= form.password_field :encrypted_password, required: true, class: 'input' %>
 
     <%= form.label :confirmationpassword %>
-    <%= form.password_field :encrypted_password_confirmation, class: 'input', placeholder: "パスワードを再入力" %>
+    <%= form.password_field :encrypted_password_confirmation, required: true, class: 'input', placeholder: "パスワードを再入力" %>
 
     <div class="mt-5 pt-5">
     <%= form.submit class: 'button is-success' %>

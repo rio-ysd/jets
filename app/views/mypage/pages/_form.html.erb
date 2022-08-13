@@ -46,11 +46,11 @@
       content.innerHTML = '';
       if (!design_id) return;
 
-      fetch(`/designs/${design_id}.json`)
+      fetch(`/mypage/designs/${design_id}.json`)
         .then(response => response.json())
         .then(resp => {
           html = resp.html;
-          let current = <%= JSON.parse(page.content).to_json.html_safe %>;
+          let current = <%= JSON.parse(page.content || '{}').to_json.html_safe %>;
           resp.contents.forEach((row) => {
             let name = `page[content][${row}]`;
             content.insertAdjacentHTML('beforeend', `<div class="mt-3"><label>${row}</label><textarea class="textarea" name="${name}" onkeyup="document.setHTML()">${current[row] || ''}</textarea></div>`);

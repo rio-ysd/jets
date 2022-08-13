@@ -39,7 +39,7 @@ class Mypage::DesignsController < Mypage::ApplicationController
   def create
     @design = Design.new(design_params)
     @design.company_id = 1
-    @design.layout_id = 2
+    @design.layout_id
 
     if @design.save
       redirect_to mypage_design_path(@design)
