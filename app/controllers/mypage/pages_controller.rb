@@ -31,6 +31,7 @@ class Mypage::PagesController < Mypage::ApplicationController
 
   # POST /pages
   def create
+    p page_params
     @page = current_user.company.pages.new(page_params)
 
     if @page.save
@@ -70,6 +71,6 @@ class Mypage::PagesController < Mypage::ApplicationController
   end
 
   def content_params
-    params.require(:page).require(:content)
+    params.require(:page).permit(:content)
   end
 end
