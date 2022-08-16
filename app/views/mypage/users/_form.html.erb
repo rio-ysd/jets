@@ -18,13 +18,13 @@
     <%= form.text_field :email, required: true, class: 'input' %>
 
     <%= form.label :password %>
-    <%= form.password_field :encrypted_password, required: true, class: 'input' %>
+    <%= form.password_field :password, required: true, class: 'input' %>
 
     <%= form.label :confirmationpassword %>
-    <%= form.password_field :encrypted_password_confirmation, required: true, class: 'input', placeholder: "パスワードを再入力" %>
+    <%= form.password_field :password_confirmation, required: true, class: 'input', placeholder: "パスワードを再入力" %>
 
     <div class="mt-5 pt-5">
     <%= form.submit class: 'button is-success' %>
-  </div>
+    </div>
   <% end %>
   

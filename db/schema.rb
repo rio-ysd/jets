@@ -61,7 +61,8 @@ ActiveRecord::Schema.define(version: 2022_08_09_072948) do
     t.bigint "company_id", null: false, unsigned: true
     t.string "name", default: "", null: false
     t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
+    t.string "password_digest", default: "", null: false
+    t.string "remember_token"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
