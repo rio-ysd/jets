@@ -1,9 +1,12 @@
-<h1>ログイン</h1>
+<div class="column">
+  <h1 class="title is-1">ログイン</h1>
+</div>
 <%= form_for :sessions, url: login_path do |f| %>
   <%= f.label :email %>
-  <%= f.email_field :email %>
+  <%= f.text_field :email, required: true, class: 'input' %>
+
   <%= f.label :password %>
-  <%= f.password_field :password %>
+  <%= f.password_field :password, required: true, class: 'input' %>
   <div class="mt-5 pt-5">
   <%= f.submit 'ログイン' %>
   </div>

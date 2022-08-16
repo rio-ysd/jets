@@ -1,4 +1,5 @@
 class ApplicationController < Jets::Controller::Base
+  before_action :require_sign_in!
   helper_method :signed_in?, :current_user
   protect_from_forgery with: :exception
 

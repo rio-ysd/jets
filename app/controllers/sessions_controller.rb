@@ -9,7 +9,9 @@ class SessionsController < ApplicationController
   end
 
   def create
+    #送られてきたpass
     if @user.authenticate(session_params[:password])
+      #今loginたuser
       sign_in(@user)
       redirect_to mypage_users_path
     else
@@ -25,6 +27,7 @@ class SessionsController < ApplicationController
   private
 
     def set_user
+      #送られてきたemail
       @user = User.find_by!(email: session_params[:email])
     rescue
       render template: "sessions/new"
@@ -32,6 +35,7 @@ class SessionsController < ApplicationController
 
     # 許可するパラメータ
     def session_params
+      #dbから取ってきたemail,pass確認
       params.require(:sessions).permit(:email, :password)
     end
 
