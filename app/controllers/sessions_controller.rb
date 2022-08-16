@@ -2,10 +2,10 @@ class SessionsController < ApplicationController
   skip_before_action :require_sign_in!, only: [:new, :create]
   before_action :set_user, only: [:create]
   
-  def index
-  end
-
   def new
+    if current_user.present?
+      redirect_to mypage_users_path
+    end
   end
 
   def create
@@ -26,9 +26,7 @@ class SessionsController < ApplicationController
 
     def set_user
       @user = User.find_by!(email: session_params[:email])
-
     rescue
-      # flash.now[:danger] = t('.flash.invalid_mail')
       render template: "sessions/new"
     end
 

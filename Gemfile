@@ -10,7 +10,6 @@ gem "dalli", "~> 3.2"
 gem "connection_pool", "~> 2.2"
 gem "paranoia", "~> 2.6"
 
-
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem "net-ssh", "~> 7.0"
