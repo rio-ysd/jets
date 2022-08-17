@@ -20,9 +20,12 @@
         <tr class="jets-element-to-delete">
           <td><%= user.name %></td>
           <td class="has-text-right">
-            <%= link_to '<i class="fas fa-file-alt"></i>'.html_safe, [:mypage, user] %>
-            <%= link_to '<i class="fas fa-pencil-alt ml-3"></i>'.html_safe, edit_mypage_user_path(user) %>
-            <%= link_to '<i class="far fa-trash-alt ml-3"></i>'.html_safe, [:mypage, user], method: :delete, data: { confirm: 'Are you sure?' } %>
+            <% if current_user.id == user.id  %>
+              <%= link_to '<i class="fas fa-file-alt"></i>'.html_safe, [:mypage, user] %>
+              <% p %>
+              <%= link_to '<i class="fas fa-pencil-alt ml-3"></i>'.html_safe, edit_mypage_user_path(user) %>
+              <%= link_to '<i class="far fa-trash-alt ml-3"></i>'.html_safe, [:mypage, user], method: :delete, data: { confirm: 'Are you sure?' } %>
+            <% end %>
           </td>
         </tr>
       <% end %>
