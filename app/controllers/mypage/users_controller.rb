@@ -24,7 +24,6 @@ class Mypage::UsersController < Mypage::ApplicationController
   # POST /users
   def create
     @user = current_user.company.users.new(user_params)
-
     if @user.save
       redirect_to mypage_user_path(@user)
     else
@@ -42,7 +41,6 @@ class Mypage::UsersController < Mypage::ApplicationController
        render :edit
      end
    else
-     ssssss
      @user.update(user_params)
      redirect_to mypage_user_path(@user)
    end

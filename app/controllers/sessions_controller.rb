@@ -39,5 +39,4 @@ class SessionsController < ApplicationController
       #dbから取ってきたemail,pass確認
       params.require(:sessions).permit(:email, :password)
     end
-
 end
