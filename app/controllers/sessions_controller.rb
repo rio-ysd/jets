@@ -15,6 +15,7 @@ class SessionsController < ApplicationController
       sign_in(@user)
       redirect_to mypage_users_path
     else
+      puts '444444444'
       render template: "sessions/new"
     end
   end
