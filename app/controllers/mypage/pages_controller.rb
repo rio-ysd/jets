@@ -9,14 +9,6 @@ class Mypage::PagesController < Mypage::ApplicationController
 
   # GET /pages/1
   def show
-    design = @page.design
-    @html = design.layout.content.gsub(/\<%= content %\>/, design.content)
-
-    @html = @html.gsub(/\<%= +title +%\>/, @page.title)
-    JSON.parse(@page.content).each do |key, val|
-      @html = @html.gsub(/\<%= +#{key} +%\>/, val.gsub(/\n/, '<br>'))
-    end
-
     render layout: false
   end
 
@@ -31,7 +23,6 @@ class Mypage::PagesController < Mypage::ApplicationController
 
   # POST /pages
   def create
-    p page_params
     @page = current_user.company.pages.new(page_params)
 
     if @page.save
@@ -59,7 +50,7 @@ class Mypage::PagesController < Mypage::ApplicationController
   private
 
   def set_page
-    @page = Page.find(params[:id])
+    @page = Page.find params[:id]
   end
 
   def set_designs

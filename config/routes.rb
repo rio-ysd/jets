@@ -2,6 +2,7 @@
 Jets.application.routes.draw do
   # resources :companies
 
+  get 'preview/:id', to: 'preview#show'
   get     'login',   to: 'sessions#new', as: 'login'
   post    'login',   to: 'sessions#create'
   get  'logout',  to: 'sessions#destroy'
