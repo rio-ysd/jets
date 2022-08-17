@@ -8,7 +8,11 @@ class Mypage::LayoutsController < Mypage::ApplicationController
 
   # GET /layouts/1
   def show
-    render layout: false
+    if params[:id].match(/\.json$/)
+      render json: {layout: @layout.content}
+    else
+      render layout: false
+    end
   end
 
   # GET /layouts/new

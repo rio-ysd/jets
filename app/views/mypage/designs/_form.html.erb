@@ -1,17 +1,20 @@
-<%= form_with(model: [:mypage, design], local: true) do |form| %>
-    <% if design.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(design.errors.count, "error") %> prohibited this design from being saved:</h2>
-  
-        <ul>
-          <% design.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
+<div class="columns is-gapless">
+  <div class="column">
+    <%= form_with(model: [:mypage, design], local: true) do |form| %>
+      <% if design.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(design.errors.count, "error") %> prohibited this design from being saved:</h2>
 
-    <%= form.label :layout %><br>
+          <ul>
+            <% design.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= form.label :layout %><br>
+
       <div class="select">
         <%= form.select :layout_id, @layouts.map { |layout| [layout.title, layout.id] }, {include_blank: '選択してください'} %>
       </div>
@@ -27,5 +30,43 @@
       <div class="mt-5 pt-5">
         <%= form.submit class: 'button is-success' %>
       </div>
-  <% end %>
-  
+    <% end %>
+  </div>
+  <div class="column">
+    <iframe width="100%" height="900"><html></html></iframe>
+  </div>
+</div>
+
+<script type="text/javascript">
+  setTimeout(function(){
+    let layoutSelector = document.querySelector('[name="design[layout_id]"]');
+    let html = null;
+
+    function changeDesign() {
+      let layout_id = layoutSelector.value;
+      if (!layout_id) return;
+
+      fetch(`/mypage/layouts/${layout_id}.json`)
+        .then(response => response.json())
+        .then(resp => {
+          html = resp.layout;
+          setHTML();
+        });
+    }
+
+    function replaceHTML(target, name, value) {
+      let regexp = '%';
+      regexp = new RegExp(`\<${regexp}= *${name} *%\>`, 'g');
+      return target.replace(regexp, value.replace(/\n/g, '<br>'));
+    }
+
+    function setHTML() {
+      let _html = replaceHTML(html, 'content', document.querySelector('[name="design[content]"]').value);
+      document.querySelector('iframe').contentWindow.document.querySelector('html').innerHTML = _html;
+    }
+    document.setHTML = setHTML;
+    document.querySelector('[name="design[content]"]').onkeyup= setHTML
+    layoutSelector.onchange = changeDesign;
+    changeDesign();
+  })
+</script>
