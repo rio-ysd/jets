@@ -2,7 +2,6 @@ class Mypage::UsersController < Mypage::ApplicationController
   skip_before_action :require_sign_in!, only: [:new, :create]
   before_action :set_user, only: %i[show edit update delete]
   
-
   # GET /users
   def index
     @users = User.all
@@ -34,12 +33,18 @@ class Mypage::UsersController < Mypage::ApplicationController
 
   # PUT /users/1
   def update
-    if @user.update(user_params)
-      redirect_to mypage_user_path(@user)
-    else
-      render :edit
-    end
-  end
+   if user_params[:password].present?
+     if @user.authenticate(user_params[:old_password])
+       @user.update(password: user_params[:password])
+       redirect_to mypage_user_path(@user)
+     else
+       render :edit
+     end
+   else
+     @user.update(user_params)
+     redirect_to mypage_user_path(@user)
+   end
+ end
 
   # DELETE /users/1
   def delete
@@ -54,7 +59,7 @@ class Mypage::UsersController < Mypage::ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(%i[name email password password_confirmation])
+    params.require(:user).permit(%i[name email old_password password password_confirmation])
   end
 end
   
