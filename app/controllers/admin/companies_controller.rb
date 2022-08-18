@@ -1,4 +1,4 @@
-class CompaniesController < ApplicationController
+class Admin::CompaniesController < ApplicationController
     before_action :set_company, only: [:show, :edit, :update, :delete]
   
     # GET /companies
@@ -24,7 +24,7 @@ class CompaniesController < ApplicationController
       @company = Company.new(company_params)
   
       if @company.save
-        redirect_to company_path(@company)
+        redirect_to admin_company_path(@company)
       else
         render :new
       end
@@ -33,7 +33,7 @@ class CompaniesController < ApplicationController
     # PUT /companies/1
     def update
       if @company.update(company_params)
-        redirect_to company_path(@company)
+        redirect_to compaadmin_company_pathny_path(@company)
       else
         render :edit
       end
@@ -42,7 +42,7 @@ class CompaniesController < ApplicationController
     # DELETE /companies/1
     def delete
       @company.destroy
-      redirect_to companies_path
+      redirect_to admin_company_path
     end
   
   private

@@ -3,7 +3,7 @@
     <h1 class="title is-1">Companies</h1>
   </div>
   <div class="column has-text-right">
-    <%= link_to '<i class="fas fa-file-medical mr-1"></i>New'.html_safe, new_company_path, class: 'button' %>
+    <%= link_to '<i class="fas fa-file-medical mr-1"></i>New'.html_safe, new_admin_company_path, class: 'button' %>
   </div>
 </div>
 
@@ -20,9 +20,9 @@
         <tr class="jets-element-to-delete">
           <td><%= company.name %></td>
           <td class="has-text-right">
-            <%= link_to '<i class="fas fa-file-alt"></i>'.html_safe, company %>
-            <%= link_to '<i class="fas fa-pencil-alt ml-3"></i>'.html_safe, edit_company_path(company) %>
-            <%= link_to '<i class="far fa-trash-alt ml-3"></i>'.html_safe, company, method: :delete, data: { confirm: 'Are you sure?' } %>
+            <%= link_to '<i class="fas fa-file-alt"></i>'.html_safe, [:admin, company] %>
+            <%= link_to '<i class="fas fa-pencil-alt ml-3"></i>'.html_safe, edit_admin_company_path(company) %>
+            <%= link_to '<i class="far fa-trash-alt ml-3"></i>'.html_safe, [:admin, company], method: :delete, data: { confirm: 'Are you sure?' } %>
           </td>
         </tr>
       <% end %>
