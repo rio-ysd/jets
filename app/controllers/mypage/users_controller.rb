@@ -4,12 +4,14 @@ class Mypage::UsersController < Mypage::ApplicationController
   
   # GET /users
   def index
-    @users = User.all
+    @users = User.where(company_id: current_user.company_id)
   end
 
   # GET /users/1
   def show
-    render user: false
+    if params[:id].to_i != current_user.id
+      redirect_to mypage_users_path
+    end
   end
 
   # GET /users/new
