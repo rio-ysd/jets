@@ -14,6 +14,15 @@
   <%= form.label :name %>
   <%= form.text_field :name, class: 'input' %>
 
+  <%= form.fields_for :users do |user|   %>
+    <%= user.label :first_user %>
+    <%= user.text_field :user, required: true, class: 'input' %>
+
+    <%= user.label :email %>
+    <%= user.text_field :email, required: true, class: 'input' %>
+
+  <% end %>
+
   <div class="mt-5 pt-5">
     <%= form.submit class: 'button is-success' %>
   </div>

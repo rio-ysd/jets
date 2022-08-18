@@ -22,7 +22,19 @@ class Admin::CompaniesController < ApplicationController
     # POST /companies
     def create
       @company = Company.new(company_params)
-  
+      @user = @company.users.new
+      @user.company_id = @company.id
+      @user.email = params['company']['users']['email']
+      @user.name = params['company']['users']['user']
+      password = SecureRandom.alphanumeric()
+      @user.password = password
+      puts "+++++++++++++++++++++++++++++++++++++++++++++"
+      puts "ここにパスワードを通知する処理を書く"
+      puts password
+      puts "+++++++++++++++++++++++++++++++++++++++++++++"
+      unless @user.valid? && @company.valid?
+        render :new
+      end
       if @company.save
         redirect_to admin_company_path(@company)
       else
@@ -52,6 +64,6 @@ class Admin::CompaniesController < ApplicationController
     end
   
     def company_params
-      params.require(:company).permit(:name)
+      params.require(:company).permit(:name, users_attributes: [:name, :email])
     end
   end
