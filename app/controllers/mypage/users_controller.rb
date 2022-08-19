@@ -9,7 +9,7 @@ class Mypage::UsersController < Mypage::ApplicationController
 
   # GET /users/1
   def show
-    if params[:id].to_i != current_user.id
+    if @user.company_id != current_user.company_id
       redirect_to mypage_users_path
     end
   end

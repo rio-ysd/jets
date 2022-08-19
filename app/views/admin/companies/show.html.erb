@@ -11,14 +11,6 @@
   <strong>Name:</strong>
   <%= @company.name %>
 </p>
-<p>
-  <strong>User Name:</strong>
-  <%= @company.users[0].name %>
-</p>
-<p>
-  <strong>User Email:</strong>
-  <%= @company.users[0].email %>
-</p>
 
 <div class="mt-5 pt-5">
   <%= link_to 'Edit', edit_admin_company_path(@company), class: 'button is-success' %>

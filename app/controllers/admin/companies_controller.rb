@@ -31,6 +31,8 @@ class Admin::CompaniesController < ApplicationController
       puts "+++++++++++++++++++++++++++++++++++++++++++++"
       puts "ここにパスワードを通知する処理を書く"
       puts password
+      puts @user.name 
+      puts @user.email
       puts "+++++++++++++++++++++++++++++++++++++++++++++"
       unless @user.valid? && @company.valid?
         render :new
@@ -64,6 +66,6 @@ class Admin::CompaniesController < ApplicationController
     end
   
     def company_params
-      params.require(:company).permit(:name, users_attributes: [:name, :email])
+      params.require(:company).permit(:name, users_attributes: %i[name email])
     end
   end
