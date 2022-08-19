@@ -9,6 +9,7 @@ class Mypage::UsersController < Mypage::ApplicationController
 
   # GET /users/1
   def show
+    # TODO: Userテーブルにroleカラムを追加後に、管理者だけ同一company_idのユーザーを全て閲覧できるように修正する
     if @user.company_id != current_user.company_id
       redirect_to mypage_users_path
     end
@@ -21,6 +22,10 @@ class Mypage::UsersController < Mypage::ApplicationController
 
   # GET /users/1/edit
   def edit
+    # TODO: Userテーブルにroleカラムを追加後に、管理者だけ同一company_idのユーザーを全て閲覧できるように修正する
+    if @user.company_id != current_user.company_id
+      redirect_to mypage_users_path
+    end    
   end
 
   # POST /users
@@ -51,6 +56,11 @@ class Mypage::UsersController < Mypage::ApplicationController
 
   # DELETE /users/1
   def delete
+    # TODO: Userテーブルにroleカラムを追加後に、管理者だけ同一company_idのユーザーを全て閲覧できるように修正する
+    if @user.company_id != current_user.company_id
+      redirect_to mypage_users_path
+    end
+ 
     @user.destroy
     redirect_to users_path
   end
