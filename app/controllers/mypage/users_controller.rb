@@ -43,6 +43,7 @@ class Mypage::UsersController < Mypage::ApplicationController
        render :edit
      end
    else
+     user_params.delete('old_password')
      @user.update(user_params)
      redirect_to mypage_user_path(@user)
    end
@@ -61,7 +62,7 @@ class Mypage::UsersController < Mypage::ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(%i[name email old_password password password_confirmation])
+    @user_params ||= params.require(:user).permit(%i[name email old_password password password_confirmation])
   end
 end
   

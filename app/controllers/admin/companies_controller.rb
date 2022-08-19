@@ -41,7 +41,7 @@ class Admin::CompaniesController < ApplicationController
         render :new
       end
     end
-  
+
     # PUT /companies/1
     def update
       if @company.update(company_params)
