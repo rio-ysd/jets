@@ -47,7 +47,7 @@ class Admin::CompaniesController < ApplicationController
     # PUT /companies/1
     def update
       if @company.update(company_params)
-        redirect_to compaadmin_company_pathny_path(@company)
+        redirect_to admin_company_path(@company)
       else
         render :edit
       end
