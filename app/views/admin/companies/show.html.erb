@@ -12,6 +12,11 @@
   <%= @company.name %>
 </p>
 
+<p>
+  <strong>登録人数:</strong>
+  <%= @company.users.length %>
+</p>
+
 <div class="mt-5 pt-5">
   <%= link_to 'Edit', edit_admin_company_path(@company), class: 'button is-success' %>
 </div>
