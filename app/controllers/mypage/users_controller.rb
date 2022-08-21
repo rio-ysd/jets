@@ -4,12 +4,15 @@ class Mypage::UsersController < Mypage::ApplicationController
   
   # GET /users
   def index
-    @users = User.all
+    @users = User.where(company_id: current_user.company_id)
   end
 
   # GET /users/1
   def show
-    render user: false
+    # TODO: Userテーブルにroleカラムを追加後に、管理者だけ同一company_idのユーザーを全て閲覧できるように修正する
+    if @user.company_id != current_user.company_id
+      redirect_to mypage_users_path
+    end
   end
 
   # GET /users/new
@@ -19,6 +22,10 @@ class Mypage::UsersController < Mypage::ApplicationController
 
   # GET /users/1/edit
   def edit
+    # TODO: Userテーブルにroleカラムを追加後に、管理者だけ同一company_idのユーザーを全て閲覧できるように修正する
+    if @user.company_id != current_user.company_id
+      redirect_to mypage_users_path
+    end    
   end
 
   # POST /users
@@ -41,6 +48,7 @@ class Mypage::UsersController < Mypage::ApplicationController
        render :edit
      end
    else
+     user_params.delete('old_password')
      @user.update(user_params)
      redirect_to mypage_user_path(@user)
    end
@@ -48,6 +56,11 @@ class Mypage::UsersController < Mypage::ApplicationController
 
   # DELETE /users/1
   def delete
+    # TODO: Userテーブルにroleカラムを追加後に、管理者だけ同一company_idのユーザーを全て閲覧できるように修正する
+    if @user.company_id != current_user.company_id
+      redirect_to mypage_users_path
+    end
+ 
     @user.destroy
     redirect_to users_path
   end
@@ -59,7 +72,7 @@ class Mypage::UsersController < Mypage::ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(%i[name email old_password password password_confirmation])
+    @user_params ||= params.require(:user).permit(%i[name email old_password password password_confirmation])
   end
 end
   

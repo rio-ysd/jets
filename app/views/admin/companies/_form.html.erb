@@ -1,4 +1,4 @@
-<%= form_with(model: company, local: true) do |form| %>
+<%= form_with(model: [:admin, company], local: true) do |form| %>
   <% if company.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(company.errors.count, "error") %> prohibited this company from being saved:</h2>
@@ -13,6 +13,17 @@
 
   <%= form.label :name %>
   <%= form.text_field :name, class: 'input' %>
+  
+  <% if company.name.blank?   %>
+    <%= form.fields_for :users do |user|   %>
+      <%= user.label :first_user %>
+      <%= user.text_field :user, required: true, class: 'input' %>
+
+      <%= user.label :email %>
+      <%= user.text_field :email, required: true, class: 'input' %>
+
+    <% end %>
+  <% end %>
 
   <div class="mt-5 pt-5">
     <%= form.submit class: 'button is-success' %>

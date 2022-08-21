@@ -1,0 +1,22 @@
+<div class="columns">
+  <div class="column">
+    <h1 class="title is-1">Show Company</h1>
+  </div>
+  <div class="column has-text-right">
+    <%= link_to '<i class="fas fa-chevron-left mr-1"></i> Back'.html_safe, admin_companies_path, class: 'button mr-3' %>    
+  </div>
+</div>
+
+<p>
+  <strong>Name:</strong>
+  <%= @company.name %>
+</p>
+
+<p>
+  <strong>登録人数:</strong>
+  <%= @company.users.length %>
+</p>
+
+<div class="mt-5 pt-5">
+  <%= link_to 'Edit', edit_admin_company_path(@company), class: 'button is-success' %>
+</div>

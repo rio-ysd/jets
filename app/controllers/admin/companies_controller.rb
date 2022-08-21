@@ -1,4 +1,4 @@
-class CompaniesController < ApplicationController
+class Admin::CompaniesController < ApplicationController
     before_action :set_company, only: [:show, :edit, :update, :delete]
   
     # GET /companies
@@ -22,18 +22,32 @@ class CompaniesController < ApplicationController
     # POST /companies
     def create
       @company = Company.new(company_params)
-  
+      @user = @company.users.new
+      @user.company_id = @company.id
+      @user.email = params['company']['users']['email']
+      @user.name = params['company']['users']['user']
+      password = SecureRandom.alphanumeric()
+      @user.password = password
+      puts "+++++++++++++++++++++++++++++++++++++++++++++"
+      puts "ここにパスワードを通知する処理を書く"
+      puts password
+      puts @user.name 
+      puts @user.email
+      puts "+++++++++++++++++++++++++++++++++++++++++++++"
+      unless @user.valid? && @company.valid?
+        render :new
+      end
       if @company.save
-        redirect_to company_path(@company)
+        redirect_to admin_company_path(@company)
       else
         render :new
       end
     end
-  
+
     # PUT /companies/1
     def update
       if @company.update(company_params)
-        redirect_to company_path(@company)
+        redirect_to admin_company_path(@company)
       else
         render :edit
       end
@@ -42,7 +56,7 @@ class CompaniesController < ApplicationController
     # DELETE /companies/1
     def delete
       @company.destroy
-      redirect_to companies_path
+      redirect_to admin_company_path
     end
   
   private
@@ -52,6 +66,6 @@ class CompaniesController < ApplicationController
     end
   
     def company_params
-      params.require(:company).permit(:name)
+      params.require(:company).permit(:name, users_attributes: %i[name email])
     end
   end
