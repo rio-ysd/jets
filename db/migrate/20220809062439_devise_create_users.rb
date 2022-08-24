@@ -5,6 +5,7 @@ class DeviseCreateUsers < Db::CreateBase
     create_table :users do |t|
       ## Database authenticatable
       t.id     :company
+      t.integer :role, default: 0, null: false
       t.string :name,               null: false, default: ""
       t.string :email,              null: false, default: ""
       t.string :password_digest, null: false, default: ""

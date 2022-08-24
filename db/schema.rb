@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 2022_08_18_060911) do
 
   create_table "users", id: { type: :bigint, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
     t.bigint "company_id", null: false, unsigned: true
+    t.integer "role", default: 0, null: false
     t.string "name", default: "", null: false
     t.string "email", default: "", null: false
     t.string "password_digest", default: "", null: false

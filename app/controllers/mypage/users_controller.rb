@@ -2,6 +2,7 @@ class Mypage::UsersController < Mypage::ApplicationController
   skip_before_action :require_sign_in!, only: [:new, :create]
   before_action :set_user, only: %i[show edit update delete]
   
+  
   # GET /users
   def index
     @users = User.where(company_id: current_user.company_id)
@@ -67,12 +68,12 @@ class Mypage::UsersController < Mypage::ApplicationController
 
   private
 
-  def set_user
-    @user = User.find(params[:id])
-  end
+    def set_user
+      @user = User.find(params[:id])
+    end
 
-  def user_params
-    @user_params ||= params.require(:user).permit(%i[name email old_password password password_confirmation])
-  end
+    def user_params
+      @user_params ||= params.require(:user).permit(%i[name email old_password password password_confirmation])
+    end
 end
   
